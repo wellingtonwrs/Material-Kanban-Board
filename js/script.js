@@ -152,12 +152,12 @@ var materialKanban = (function () {
                 "staticColumns": [{
                     "COLUMN_ID": "1",
                     "COLUMN_TITLE": "To Do",
-                    "COLUMN_ICON": "fa-calendar"
-                                    }, {
+                    "COLUMN_ICON": "fa-calendar",
+                }, {
                     "COLUMN_ID": "2",
                     "COLUMN_TITLE": "In Progress",
                     "COLUMN_ICON": "fa-wrench"
-                                    }, {
+                }, {
                     "COLUMN_ID": "3",
                     "COLUMN_TITLE": "Done",
                     "COLUMN_ICON": "fa-check"
@@ -167,12 +167,11 @@ var materialKanban = (function () {
                 "groupColWidth": 6,
                 "allowDragItemsBetweenGroups": false,
                 "groupCollapsible": false,
-                "printDataToConsole": false
+                "printDataToConsole": false,
+                "columnCount": false
             };
 
-            var configJSON = {};
-            configJSON = util.jsonSaveExtend(stdConfigJSON, udConfigJSON, false);
-
+            var configJSON = util.jsonSaveExtend(stdConfigJSON, udConfigJSON, false);
             var columnsData = configJSON.staticColumns;
             var lastItemsData = null;
             var drakeItems = null;
@@ -354,7 +353,8 @@ var materialKanban = (function () {
 
                             if (configJSON.groupExtension) {
                                 drawGroupRegion(groupRow, itemGroupedData[0]);
-                            };
+                            }
+                            ;
 
                             $.each(columnsData, function (index, columnData) {
                                 drawItemRegion(groupRow, itemGroupedData, columnData);
@@ -464,7 +464,16 @@ var materialKanban = (function () {
                     colHeader.attr("style", columnData.COLUMN_HEADER_STYLE || stripeStdStyle);
 
                     /* add title */
-                    var title = (columnData.COLUMN_TITLE != undefined) ? columnData.COLUMN_TITLE : '';
+                    var title = (columnData.COLUMN_TITLE !== undefined) ? columnData.COLUMN_TITLE : '';
+
+                    if (configJSON.columnCount) {
+                        var filteredItems = itemsData.filter(function (itemData) {
+                            return itemData.COLUMN_ID == columnData.COLUMN_ID && itemData.ID;
+                        });
+
+                        title = title + ' (' + filteredItems.length + ')';
+                    }
+
                     colHeader.append('<p class="title">' + title + '</p>');
 
                     col.append(colHeader);
@@ -692,7 +701,7 @@ var materialKanban = (function () {
 
             /***********************************************************************
              **
-             ** Used to draw new card 
+             ** Used to draw new card
              **
              ***********************************************************************/
             function drawNewCard(parent, url) {
