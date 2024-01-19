@@ -329,7 +329,7 @@ var materialKanban = (function () {
                     groupColWidth = Math.floor(groupColWidth * 100) / 100;
                     itemColWidth = Math.floor(itemColWidth * 100) / 100;
 
-                    drawHeaderRegion(container);
+                    drawHeaderRegion(container, itemsData.row);
                     var cardContainer = drawRow(container);
                     cardContainer.addClass("kb-group-container");
 
@@ -437,7 +437,7 @@ var materialKanban = (function () {
              ** Used to draw the header region
              **
              ***********************************************************************/
-            function drawHeaderRegion(parent) {
+            function drawHeaderRegion(parent, itemsData) {
                 var row = drawRow(parent);
                 row.addClass("kb-row");
                 /* add empty region in left corner then using group extension */
