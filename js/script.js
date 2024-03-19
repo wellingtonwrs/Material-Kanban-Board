@@ -633,6 +633,10 @@ var materialKanban = (function () {
 
                 card.attr("itemid", cardData.ID);
 
+                if (cardData.ADDITIONAL_STYLE) {
+                    card.attr("style", cardData.ADDITIONAL_STYLE);
+                }
+
                 /* define header for card */
                 var cardHeader = $("<div></div>");
                 cardHeader.addClass("card-header");
