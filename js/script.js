@@ -633,6 +633,8 @@ var materialKanban = (function () {
 
                 card.attr("itemid", cardData.ID);
 
+                card.attr("additionalStyle", cardData.ADDITIONAL_STYLE);
+
                 if (cardData.ADDITIONAL_STYLE) {
                     card.attr("style", cardData.ADDITIONAL_STYLE);
                 }
