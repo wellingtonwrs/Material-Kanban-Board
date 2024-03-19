@@ -605,13 +605,7 @@ var materialKanban = (function () {
                         drawItemCard(
                             parent, {
                                 "isGroupCard": false,
-                                "ID": cardData.ID,
-                                "ICON": cardData.ICON,
-                                "ICON_COLOR": cardData.ICON_COLOR,
-                                "HEADER_STYLE": cardData.HEADER_STYLE,
-                                "TITLE": cardData.TITLE,
-                                "FOOTER": cardData.FOOTER,
-                                "LINK": cardData.LINK
+                                ...cardData
                             },
                             columnData);
                     });
@@ -683,6 +677,16 @@ var materialKanban = (function () {
                     card.append(link);
                 } else {
                     card.append(cardBody);
+                }
+
+                for (let i = 0; i < 10; i++) {
+                    const subtitle = cardData["SUBTITLE_" + i];
+                    if (subtitle) {
+                        var subtitleDiv = $("<div></div>");
+                        subtitleDiv.append(subtitle);
+                        subtitleDiv.attr("style", "margin: 0 6px 3px;")
+                        card.append(subtitleDiv);
+                    }
                 }
 
                 if (cardData.FOOTER) {
